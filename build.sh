@@ -1,0 +1,1 @@
+docker build -t climate_fieldview_service:latest .

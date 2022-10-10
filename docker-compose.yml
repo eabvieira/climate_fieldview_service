@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  # Application
+  climate_fieldview_service:
+    image: climate_fieldview_service:latest
+    hostname: climate_fieldview_service_lambda
+    container_name: climate_fieldview_service_lambda
+    volumes:
+      - ./app:/app
+      - ./app:/var/task/app
+    ports:
+      #- "3000:3002"
+      - "9000:8080" # lambda port
+      #- "5678:5678" # python debug port
+    environment:
+      - STAGE=local
+      - CLUSTER_URL=http://172.17.0.1:80
+      - BUILD_ID=1
+      - DEBUG=1
+      - DEV=1
+      - MONGODB_URL=mongodb://root:example@172.17.0.1:27017
+      - AGRISTAMP_KEY=96ee9d62-ea61-11eb-9a03-0242ac130003
+      - CLIMATE_FIELDVIEW_TOKEN=owdigmjs
+      - CLIMATE_FIELDVIEW_CODIGO_CORRETOR=49792
+      - CLIMATE_FIELDVIEW_CODIGO_PRODUTO=03
+      - CLIMATE_FIELDVIEW_CPF_CORRETOR=04698999804
+      - CLIMATE_FIELDVIEW_AGRISTAMP_EMAIL=climate_fieldview@agristamp.com.br
+      - CLIMATE_FIELDVIEW_API_URL=https://servicos-aceitew.climate_fieldview.com.br/ems/corporate/servicos/ctpj-agro-safra-ws/
+      - QUEUE_URL_PROPOSTAS_PUB_SERVICE=queue-propostas-pub-service-dev
